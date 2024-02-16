@@ -8,13 +8,12 @@ function App() {
   const addItem = async (e) => {
     e.preventDefault()
     try{
-      const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
-      const video_id = itemText.split('v=')[1];
-      const api_call = 'http://127.0.0.1:5000/summarize?url=' + video_id
+      //const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
+      const api_call = 'http://127.0.0.1:5000/summarize?url=' + itemText
       console.log(api_call)
-      // const res2 = await axios.get(api_call) //call the api to summarize the url
-      console.log(res)
-      //console.log(res2)
+      const res2 = await axios.get(api_call) //call the api to summarize the url
+      //console.log(res)
+      console.log(res2)
     } catch(err) {
       console.log(err)
     }

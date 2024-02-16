@@ -8,10 +8,11 @@ app = Flask(__name__)
 @app.get('/summarize')
 def summarize_api():
     url = request.args.get('url', '')
-    video_id = url.split('=')[0]
-    print(video_id)
+    video_id = url.split('=')[1]
     transcript = get_transcript(video_id)
     summary = get_summary(transcript)
+    print("summary under ____")
+    print(summary)
     return summary, 200
 
 def get_transcript(video_id):
