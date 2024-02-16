@@ -1,0 +1,5 @@
+to activate virtual environment:
+./venv/Scripts/activate
+
+to run flask backend: (run while using chrome extension)
+python -m flask run

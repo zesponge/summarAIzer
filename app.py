@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.get('/summary')
 def summary_api():
     url = request.args.get('url', '')
-    video_id = url.split('=')[0]
+    video_id = url.split('=')[1]
     summary = get_summary(get_transcript(video_id))
     # summariser = pipeline('summarization')
     # video_id = "z8aBZZnv6y8"
