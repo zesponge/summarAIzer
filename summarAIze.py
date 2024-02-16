@@ -1,9 +1,11 @@
 from flask import Flask, request
+from flask_cors import CORS
 from transformers import pipeline
 from youtube_transcript_api import YouTubeTranscriptApi
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.get('/summarize')
 def summarize_api():

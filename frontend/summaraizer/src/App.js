@@ -1,24 +1,34 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function App() {
   const [itemText, setItemText] = useState('')
+  const [itemsList, setItemsList] = useState([])
+  const [summary, setSummary] = useState('') //add state for summary
 
   const addItem = async (e) => {
     e.preventDefault()
     try{
-      //const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
+      const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
       const api_call = 'http://127.0.0.1:5000/summarize?url=' + itemText
-      console.log(api_call)
-      const res2 = await axios.get(api_call) //call the api to summarize the url
-      //console.log(res)
-      console.log(res2)
+      const summary = await axios.get(api_call) //call the api to summarize the url
     } catch(err) {
       console.log(err)
     }
-
   }
+
+  useEffect(() => {
+    const getItemsList = async () => {
+      try{
+        const allItems = await axios.get('http://localhost:5500/api/items')
+        setItemsList(allItems.data)
+      } catch(err) {
+        console.log(err)
+      }
+    }
+    getItemsList()
+  },[])
 
 
   return (
@@ -33,6 +43,15 @@ function App() {
         </form>
         <p className='subhead'>Summary</p>
         <input id="" className="summarybox" type='text' placeholder=''></input>
+        {
+          itemsList.map((item) => {
+            return( 
+              <div>
+                <p>{item.item}</p>
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );
