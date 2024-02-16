@@ -12,4 +12,8 @@ npm run dev
 web app server:
 cd into server
 npm i
-npm run start
+npm start
+
+mongodb:
+Q5MFamjWOLSvIHJU
+zesponge
