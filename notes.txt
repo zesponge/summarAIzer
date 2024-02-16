@@ -5,6 +5,11 @@ to run flask backend: (run while using chrome extension)
 python -m flask run
 
 to run web app front-end:
-cd summaraizer
+cd into frontend
 npm i
 npm run dev
+
+web app server:
+cd into server
+npm i
+npm run start
