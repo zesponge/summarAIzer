@@ -13,6 +13,8 @@ function App() {
       const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
       const api_call = 'http://127.0.0.1:5000/summarize?url=' + itemText
       const summary = await axios.get(api_call) //call the api to summarize the url
+      setSummary(summary.data) //set the summary state to the summary data
+      console.log(summary.data)
     } catch(err) {
       console.log(err)
     }
@@ -39,10 +41,10 @@ function App() {
       <div className='body'>
         <form className='formclass' onSubmit={e => addItem(e)}>
           <input className="inputbox" type='text' placeholder='enter URL' onChange={e => {setItemText(e.target.value)}} value={itemText}></input>
-          <button className='submitButton' >Summarize</button>
+          <button className='submitButton'>Summarize</button>
         </form>
         <p className='subhead'>Summary</p>
-        <input id="" className="summarybox" type='text' placeholder=''></input>
+        <p id="" className="summarybox" type='text' placeholder=''>{summary}</p>
         {
           itemsList.map((item) => {
             return( 
