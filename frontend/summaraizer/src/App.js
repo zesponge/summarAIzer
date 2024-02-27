@@ -14,6 +14,9 @@ function App() {
       const res = await axios.post('http://localhost:5500/api/item', {item: itemText}) //add url to database
       const summary = await axios.get(api_call) //call the api to summarize the url
       setSummary(summary.data) //set the summary state to the summary data
+      const allItems = await axios.get('http://localhost:5500/api/items')
+
+      setItemsList(allItems.data.reverse().slice(0, 5))
     } catch(err) {
       console.log(err)
     }
@@ -23,7 +26,8 @@ function App() {
     const getItemsList = async () => {
       try{
         const allItems = await axios.get('http://localhost:5500/api/items')
-        setItemsList(allItems.data)
+
+        setItemsList(allItems.data.reverse().slice(0, 5))
       } catch(err) {
         console.log(err)
       }
@@ -42,17 +46,24 @@ function App() {
           <input className="inputbox" type='text' placeholder='enter URL' onChange={e => {setItemText(e.target.value)}} value={itemText}></input>
           <button className='submitButton'>Summarize</button>
         </form>
-        <p className='subhead'>Summary</p>
-        <p id="" className="summarybox" type='text' placeholder=''>{summary}</p>
-        {
-          itemsList.map((item) => {
-            return( 
-              <div>
-                <p>{item.item}</p>
-              </div>
-            )
-          })
-        }
+        <div className='summarizebody'>
+          <div className='lebron'>
+            <p className='subhead'>Summary</p>
+            <p id="" className="summarybox" type='text' placeholder=''>{summary}</p>
+          </div>
+          <div className='lebron'>
+          <p className='subhead'>Previously Summarized Videos</p>
+          {
+            itemsList.map((item) => {
+              return( 
+                <div className='databody'>
+                  <p>{item.item}</p>
+                </div>
+              )
+            })
+          }
+          </div>
+        </div>
       </div>
     </div>
   );
